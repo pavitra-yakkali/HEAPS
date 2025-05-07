@@ -1,0 +1,41 @@
+//brute
+import java.util.*;
+
+class Main {
+    public static int findKthSmallest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[k - 1];
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {3, 2, 1, 5, 6, 4};
+        int k = 2;
+        int result = findKthSmallest(arr, k);
+        System.out.println("Kth smallest element: " + result); // Output: 2
+    }
+}
+//better
+import java.util.*;
+
+class Main {
+    public static int findKthSmallest(int[] nums, int k) {
+        // Max-heap to store the k smallest elements
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+        for (int num : nums) {
+            pq.add(num);
+            if (pq.size() > k) {
+                pq.poll(); // Remove the largest among the k+1 elements
+            }
+        }
+
+        return pq.peek(); // kth smallest
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {3, 2, 1, 5, 6, 4};
+        int k = 2;
+        int result = findKthSmallest(arr, k);
+        System.out.println("Kth smallest element: " + result); // Output: 2
+    }
+}
